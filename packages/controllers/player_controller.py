@@ -1,25 +1,23 @@
 from .import utils
 from .import constants
-from .import menus_controller
+from .import add_player_menu
 from ..models.player import Player
-#from ..views import in_out_view
 
 from ..models.player_manager import PlayerManager
 from ..views.in_out_view import get_user_entry
 
 
 class PlayerController:
-    def __init__(self, item):
-        self.item = item
+    """ Création d'un nouveau joueur """
+    def __init__(self):
         self.pm = PlayerManager()
         self.data_p = utils.players_db_list
         self.title = ""
 
     def run(self):
-        if self.item == 'add new players':
-            self.title = "Ajout d'un nouveau joueur"
-            self.data_p.append(self.add_player())
-            return menus_controller.player_add_menu()
+        self.title = "Ajout d'un nouveau joueur"
+        self.data_p.append(self.add_player())
+        return add_player_menu.AddPlayerMenu()
 
     def add_player(self):
         player_data = {}

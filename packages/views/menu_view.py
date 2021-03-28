@@ -2,6 +2,7 @@ from .import in_out_view
 
 
 class MenuView:
+    """ Affichage des menus et saisie des choix de l'utilisateur"""
     def __init__(self, menu):
         self.menu = menu
         self.items = self.menu.items_menu()

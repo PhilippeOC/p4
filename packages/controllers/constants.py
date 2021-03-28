@@ -1,3 +1,6 @@
+""" Constantes de mise en forme pour l'affichage des données """
+
+
 ITEMS_PLAYERS = {"lastname": "Nom du joueur:",
                  "firstname": "Prénom du joueur:",
                  "datebirth": "Date de naissance: jour-mois-année (ex: 14-02-2000):",
@@ -27,5 +30,8 @@ HEAD_MATCHS = f"{'Match':>4s} {' ':1s} {'Joueur A':^20s} {' ':1s} {'Score':^10s}
 
 HEAD_MATCHS_TO_DO_RD1 = f"{'Match':>4s} {' ':1s} {'Joueur A':^20s} {' ':1s} {'Rank':^10s} {' ':1s}" \
                         f"{'Joueur B':^20s} {' ':1s} {'Rank':^10s}"
+
+HEAD_MATCHS_TO_DO = f"{'Match':>4s} {' ':1s} {'Joueur A':^20s} {' ':1s} {'Points':^10s} {' ':1s}" \
+                    f"{'Joueur B':^20s} {' ':1s} {'Points':^10s}"
 
 HEAD_ONE_MATCH = f"{'Match':>4s} {' ':1s} {'Joueur A':^20s} {' ':1s} {'   ':^10s} {'Joueur B':^20s} {' ':1s}"

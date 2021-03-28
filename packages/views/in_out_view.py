@@ -1,6 +1,9 @@
 import os
 import sys
 from ..controllers import constants
+from typing import Union
+
+""" Fonctions d'affichage et de saisie de donneés utilisées dans les modules du package views """
 
 
 def clear_console():
@@ -31,15 +34,13 @@ def display_players_aplhabetic(data: list,  clear=True):
     print(constants.HEAD_PLAYERS_ALPHA)
     for num, item in enumerate(data):
         data = f"{str(num+1):>4s} {' ':1s} {item['lastname']:<10} {' ':1s} {item['firstname']:<10s} {' ':1s}" \
-            f"{item['ranking']:>5d} {' ':2s} {item['datebirth']:>10s} {' ':1s} {item['sex']:^8s} {' ':1s}" \
-            f"{item['identifier']:^30s}"
+               f"{item['ranking']:>5d} {' ':2s} {item['datebirth']:>10s} {' ':1s} {item['sex']:^8s} {' ':1s}" \
+               f"{item['identifier']:^30s}"
         print(data)
     return num
 
 
 def disp_players_aplhabetic(data: list,  clear=True):
-    #display_title("Liste des joueurs par ordre alphabétique", clear)
-    #print(constants.HEAD_PLAYERS_ALPHA)
     for num, item in enumerate(data):
         data = f"{item[0]:<10} {' ':1s} {item[1]:<10s} {' ':1s}"
         print(data)
@@ -47,11 +48,9 @@ def disp_players_aplhabetic(data: list,  clear=True):
 
 
 def display_players_less8(data: list, sub_title="par défaut", title="Liste des joueurs du tournoi"):
-    #clear_console()
     display_title(title, clear=True)
     subtitle(sub_title)
     disp_players_aplhabetic(data,  clear=False)
-    #display_players_rank(data[1],  clear=False)
 
 
 def display_players_rank(data: list, clear=True):
@@ -65,7 +64,7 @@ def display_players_rank(data: list, clear=True):
     return num
 
 
-def display_tournaments(data: dict, title="Liste des tournois"):
+def display_tournaments(data: list, title="Liste des tournois"):
     display_title(title)
     print(constants.HEAD_TOURNAMENTS)
     for num, item in enumerate(data):
@@ -94,37 +93,50 @@ def display_tours(data: list, sub_title: str):
     return num
 
 
-def display_matchs(data: list, sub_title: str):
+def display_matchs(data: list, round_name: str, sub_title: str):
     display_title("Liste des matchs")
     subtitle(sub_title)
     for num_round, matchs in list(enumerate(data)):
-        print('round:', num_round+1)
+        if round_name is None:
+            print("Round " + str(num_round+1))
+        else:
+            print(round_name)
         print(constants.HEAD_MATCHS)
         for num, item in matchs.items():
-            #print(num, item)
-            data = f"{num:>4s} {' ':1s} {item[0][0][0]:<10s} {' ':1s} {item[0][0][1]:<10s} {' ':1s} {item[0][1]:<6} {'-- ':^4s}"\
-                f"{item[1][0][0]:<10s} {' ':1s} {item[1][0][1]:<10s} {item[1][1]:<6}"
+            data = f"{num:>4s} {' ':1s} {item[0][0][0]:<10s} {' ':1s} {item[0][0][1]:<10s} {' ':1s} {item[0][1]:<6}"\
+                   f"{'-- ':^4s} {item[1][0][0]:<10s} {' ':1s} {item[1][0][1]:<10s} {item[1][1]:<6}"
             print(data)
 
 
 def disp_matchs_to_do(data: list, sub_title: str):
-    display_title("Liste des matchs à disputer")
+    display_title("Liste des matchs à jouer")
     subtitle(sub_title)
-    print(constants.HEAD_MATCHS_TO_DO_RD1)
-    for num, matchs in enumerate(data):
-        disp_data = f"{str(num + 1):>4s} {' ':1s} {matchs[0]['lastname']:<10s} {' ':1s} {matchs[0]['firstname']:<10s} {' ':1s} {matchs[0]['ranking']:<6} {'-- ':^4s}"\
-               f"{matchs[1]['lastname']:<10s} {' ':1s} {matchs[1]['firstname']:<10s} {matchs[1]['ranking']:<6}"
-        print(disp_data)
-    print()
+    if sub_title == 'Round 1':
+        print(constants.HEAD_MATCHS_TO_DO_RD1)
+        for num, matchs in enumerate(data):
+            disp_data = f"{str(num + 1):>4s} {' ':1s} {matchs[0]['lastname']:<10s} {' ':1s}"\
+                        f"{matchs[0]['firstname']:<10s} {' ':1s} {matchs[0]['ranking']:<6} {'-- ':^4s}"\
+                        f"{matchs[1]['lastname']:<10s} {' ':1s} {matchs[1]['firstname']:<10s}"\
+                        f"{matchs[1]['ranking']:<6}"
+            print(disp_data)
+        print()
+    else:
+        print(constants.HEAD_MATCHS_TO_DO)
+        for num, matchs in enumerate(data):
+            disp_data = f"{str(num + 1):>4s} {' ':1s} {matchs[0]['lastname']:<10s} {' ':1s}"\
+                        f"{matchs[0]['firstname']:<10s} {' ':1s} {matchs[0]['score']:<6} {'-- ':^4s}"\
+                        f"{matchs[1]['lastname']:<10s} {' ':1s} {matchs[1]['firstname']:<10s}"\
+                        f"{matchs[1]['score']:<6}"
+            print(disp_data)
+        print()
 
 
 def disp_one_match(num_match: int, play_1: dict, play_2: dict):
-    #print()
-    #print()
     print(constants.HEAD_ONE_MATCH)
-    data = f"{str(num_match):>4s} {' ':1s} {play_1['lastname']:<10s} {' ':1s} {play_1['firstname']:<10s} {' ':1s} {'-- ':^10s}"\
-           f"{play_2['lastname']:<10s} {' ':1s} {play_2['firstname']:<10s}"
+    data = f"{str(num_match):>4s} {' ':1s} {play_1['lastname']:<10s} {' ':1s} {play_1['firstname']:<10s} {' ':1s}"\
+           f" {'-- ':^10s} {play_2['lastname']:<10s} {' ':1s} {play_2['firstname']:<10s}"
     print(data)
+
 
 def disp_ask_enter_score():
     print()
@@ -132,16 +144,16 @@ def disp_ask_enter_score():
     print("1. Entrer les scores des matchs")
     print("2. Menu précédent")
 
+
 def to_enter_the_scores():
     print()
     print()
     print("1. Le joueur A a gagné")
     print("2. Le joueur B a gagné")
     print("3. Le match est nul")
-    #print("4. Menu précédent")
 
 
-def get_user_entry(title: str, msg: str, ask_for: str, default_value: str):
+def get_user_entry(title: str, msg: str, ask_for: str, default_value: str) -> str:
     display_title(title)
     print(msg)
     usr_entry = input(ask_for + " >> ").strip()
@@ -152,7 +164,6 @@ def get_user_entry(title: str, msg: str, ask_for: str, default_value: str):
             display_title(title)
             print(msg)
             usr_entry = input(ask_for + " >> ").strip()
-    #display_title(title)
     return usr_entry
 
 
@@ -161,7 +172,7 @@ def wait():
     os.system("pause")
 
 
-def come_back(message=""):
+def come_back(message="") -> bool:
     print()
     print(message)
     choice = input("Taper 'q' pour revenir au menu précédent: >> ")
@@ -169,7 +180,7 @@ def come_back(message=""):
         return True
 
 
-def get_number_entry(ask_for: str, nb_items: int):
+def get_number_entry(ask_for: str, nb_items: int) -> Union[int, bool]:
     print()
     try:
         choice = input(ask_for + " >> ").strip()

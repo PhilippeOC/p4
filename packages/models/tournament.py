@@ -1,11 +1,11 @@
 from . import utils
-#from ..controllers import tournament_controller
 from datetime import datetime
 from enum import Enum
 from typing import Union
 
 
 class Tournament:
+    """ Modèlise un tournoi """
 
     class Error(Exception):
         def __init__(self, message: str):
@@ -23,7 +23,7 @@ class Tournament:
                 attr_name_error[attr_name] = err.args[1]
         if attr_name_error:
             raise Tournament.Error(attr_name_error)
-        
+
         self.__identifier = self.name + "-" + self.place + "-" + self.date.isoformat()
 
     def serialize(self) -> dict:
@@ -49,7 +49,8 @@ class Tournament:
     @name.setter
     def name(self, name: str):
         if utils.check_name(name):
-            raise Tournament.Error(f"'{name}': le nom du tournoi doit contenir au moins deux lettres sans ponctuation.")
+            raise Tournament.Error(f"'{name}': le nom du tournoi doit contenir au"
+                                   "moins deux lettres sans ponctuation.")
         self.__name = name.upper()
 
     @property
@@ -78,7 +79,6 @@ class Tournament:
                     raise Tournament.Error(f"'{day}': vérifier le format de la date.")
         self.__date = day
 
-
     @property
     def nb_turns(self) -> int:
         return self.__nb_turns
@@ -89,7 +89,7 @@ class Tournament:
             try:
                 nb_turns = int(nb_turns)
             except Exception:
-                raise Tournament.Error(f"'{nb_turns}': le nombre de tours est un nombre entier positif.")    
+                raise Tournament.Error(f"'{nb_turns}': le nombre de tours est un nombre entier positif.")
         if not nb_turns > 0:
             raise Tournament.Error(f"'{nb_turns}': le nombre de tours est un nombre entier positif.")
         self.__nb_turns = nb_turns
@@ -125,14 +125,16 @@ class Tournament:
         # soit time_control = '1' ou '2' ou '3' ou alors time_control = 'BULLET' ou 'BLITZ' ou 'COUP RAPIDE'
         try:
             if int(time_control) not in [item.value for item in self.Time]:
-                raise Tournament.Error(f"'{time_control}': le contrôle du temps doit être : 1. BULLET, 2. BLITZ ou 3. COUP RAPIDE")
+                raise Tournament.Error(f"'{time_control}': le contrôle du temps doit être:"
+                                       f"1. BULLET, 2. BLITZ ou 3. COUP RAPIDE")
             for item in self.Time:
                 if int(time_control) == item.value:
                     self.__time_control = item.name
                     break
         except ValueError:
             if time_control not in [item.name for item in self.Time]:
-                raise Tournament.Error(f"'{time_control}': le contrôle du temps doit être : 1. BULLET, 2. BLITZ ou 3. COUP RAPIDE")
+                raise Tournament.Error(f"'{time_control}': le contrôle du temps doit être:"
+                                       f"1. BULLET, 2. BLITZ ou 3. COUP RAPIDE")
             for item in self.Time:
                 if time_control == item.name:
                     self.__time_control = item.name

@@ -6,6 +6,8 @@ import uuid
 
 
 class Player:
+    """ Modèlise un joueur """
+
     class Error(Exception):
         def __init__(self, message: str):
             super().__init__(self, message)
@@ -126,4 +128,3 @@ class Player:
         if not rank_min <= rank <= rank_max:
             raise Player.Error(f"'{rank}': le classement est un nombre compris entre {rank_min} et {rank_max}.")
         self.__ranking = rank
-
