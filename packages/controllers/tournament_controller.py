@@ -118,6 +118,7 @@ class TournamentController:
         num_p = in_out_view.get_number_entry("Entrer le N° du joueur", nb_items)
 
         if num_p:
+            self.data_p = utils.disp_players_alpha(self.data_p)
             p = self.pm.create_player(self.data_p[num_p-1])
             if tournament.players_id_list:
                 if self.p_already_in_t(tournament, p):
@@ -127,6 +128,7 @@ class TournamentController:
                         if in_out_view.come_back(f"{p.firstname} {p.lastname} est déjà dans le tournoi!"):
                             break
                     return tournament_menu_controller.TournamentMenuController()
+
             tournament.players_id_list.append(str(p.identifier))
             self.update_data_t(tournament)
 
