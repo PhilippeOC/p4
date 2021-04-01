@@ -2,7 +2,7 @@ from collections import namedtuple
 
 
 class Menu:
-    """ Modèle des menus """
+    """ Classe des menus """
     def __init__(self):
         self.__menu_entries = {}
         self.__title = ""

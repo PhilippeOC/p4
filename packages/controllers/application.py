@@ -7,6 +7,7 @@ class ApplicationController:
         self.controller = None
 
     def start_app(self):
+        """ Démarrage de l'application """
         utils.players_db_list = utils.disp_players_alpha(utils.read_datas_db('players'))
         utils.tournaments_db_list = utils.read_datas_db('tournaments')
         self.controller = HomeMenuController()

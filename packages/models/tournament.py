@@ -122,7 +122,7 @@ class Tournament:
 
     @time_control.setter
     def time_control(self, time_control: str):
-        # soit time_control = '1' ou '2' ou '3' ou alors time_control = 'BULLET' ou 'BLITZ' ou 'COUP RAPIDE'
+        """ soit time_control = '1' ou '2' ou '3' ou alors time_control = 'BULLET' ou 'BLITZ' ou 'COUP RAPIDE' """
         try:
             if int(time_control) not in [item.value for item in self.Time]:
                 raise Tournament.Error(f"'{time_control}': le contrôle du temps doit être:"

@@ -100,7 +100,7 @@ class Player:
 
     @sex.setter
     def sex(self, sex: str):
-        # soit sex = '1' ou '2' ou alors sex = 'Homme' ou 'Femme'
+        """ soit sex = '1' ou '2' ou alors sex = 'Homme' ou 'Femme' """
         try:
             if int(sex) not in [item.value for item in self.Gender]:
                 raise Player.Error(f"'{sex}': impossible, saisir 1 pour Homme ou 2 pour Femme.")
