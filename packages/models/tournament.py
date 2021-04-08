@@ -49,7 +49,7 @@ class Tournament:
     @name.setter
     def name(self, name: str):
         if utils.check_name(name):
-            raise Tournament.Error(f"'{name}': le nom du tournoi doit contenir au"
+            raise Tournament.Error(f"'{name}': le nom du tournoi doit contenir au "
                                    "moins deux lettres sans ponctuation.")
         self.__name = name.upper()
 
