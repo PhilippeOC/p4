@@ -160,9 +160,9 @@ class MatchController:
 
     def match_making_first_round(self, tournament: TournamentManager):
         match_to_disp = []
-        self.create_round("Round 1", tournament)
         if self.choose_to_enter_score(tournament, "Round 1") == 2:
             return True
+        self.create_round("Round 1", tournament)
         tournament.round_list[0]['match_list'] = self.add_matchs_in_round(tournament, "Round 1")
         match_to_disp.append(utils.match_player_score(tournament.round_list[0]['match_list']))
         in_out_view.display_matchs(match_to_disp, "Round 1", f"Tournoi: {tournament.name} à {tournament.place} "
